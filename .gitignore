@@ -35,3 +35,11 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
+# 빌드 결과물 무시
+/build
+
+# 단, JAR 파일은 추적 허용
+!build/libs/
+!build/libs/*.jar
