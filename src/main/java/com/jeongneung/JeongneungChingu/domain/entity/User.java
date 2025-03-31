@@ -10,13 +10,17 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userKey;  // 내부 DB 식별자 (자동 생성 PK)
 
-    @Column(unique = true)
-    private String username;
+    @Column(nullable = false, unique = true)
+    private String userId;  // 사용자가 입력하는 로그인 ID
 
+    @Column(nullable = false)
     private String password;
-    private String nickname;
+
+    @Column(nullable = false, unique = true)
+    private String email;
 }

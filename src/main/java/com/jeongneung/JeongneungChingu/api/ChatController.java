@@ -17,13 +17,12 @@ public class ChatController {
         this.aiClientService = aiClientService;
     }
 
-    @PostMapping
-    public ResponseEntity<String> chat(@RequestBody Map<String, String> req) {
+    @PostMapping(produces = "application/json; charset=UTF-8")
+    public ResponseEntity<Map<String, String>> chat(@RequestBody Map<String, String> req) {
         String message = req.get("message");
-        System.out.println("🗨️ 사용자 질문: " + message);
-
         String aiResponse = aiClientService.queryAiServer(message);
 
-        return ResponseEntity.ok(aiResponse);
+        return ResponseEntity.ok(Map.of("response", aiResponse));
     }
+
 }
