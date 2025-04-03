@@ -19,7 +19,7 @@ public class UserService {
 
     public String signup(UserDto.Signup request) {
         if (userRepository.existsByEmail(request.getEmail())) {
-            return "❌ 이미 존재하는 이메일입니다.";
+            return "이미 존재하는 이메일입니다.";
         }
 
         User user = User.builder()
@@ -29,17 +29,18 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
-        return "✅ 회원가입 성공!";
+        return "회원가입 성공";
     }
 
-    public String login(UserDto.Login loginDto) {
-        User user = userRepository.findByUserId(loginDto.getUserId())
+    // JWT를 사용한 로그인 검증 로직
+    public User validateLogin(String userId, String rawPassword) {
+        User user = userRepository.findByUserId(userId)  //DB에서 유저ID를 찾고 없다면 메시지 반환
                 .orElseThrow(() -> new CustomAuthException("존재하지 않는 사용자입니다.", HttpStatus.UNAUTHORIZED));
 
-        if (!passwordEncoder.matches(loginDto.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
             throw new CustomAuthException("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
         }
 
-        return "✅ 로그인 성공!";
+        return user;
     }
 }
