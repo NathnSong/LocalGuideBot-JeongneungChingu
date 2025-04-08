@@ -11,7 +11,7 @@ import java.util.Map;
 public class AiClientService {
 
     private final RestTemplate restTemplate;
-    private final String FLASK_API_URL = "http://localhost:5000/chat"; // AI서버 엔드포인트.나중에 수정필요
+    private final String FLASK_API_URL = "http://223.130.152.181:8080/chat"; // AI서버 엔드포인트.나중에 수정필요
 
     public AiClientService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;

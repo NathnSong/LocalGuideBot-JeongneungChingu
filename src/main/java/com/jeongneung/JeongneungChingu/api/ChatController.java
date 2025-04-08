@@ -20,10 +20,8 @@ public class ChatController {
     @PostMapping(produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, String>> chat(@RequestBody Map<String, String> req) {
         String message = req.get("message");
-        //String aiResponse = aiClientService.queryAiServer(message);
-        String responseMessage = "받은 메시지: " + message;
+        String aiResponse = aiClientService.queryAiServer(message);
         System.out.println("응답받은 메시지: " + message);
-        return ResponseEntity.ok(Map.of("response", responseMessage));
+        return ResponseEntity.ok(Map.of("response", aiResponse));
     }
-
 }
