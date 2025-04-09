@@ -27,14 +27,18 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/login",
+                        .requestMatchers(
+                                "/api/users/login",
                                 "/api/users/signup",
                                 "/api/chat",
+                                "/swagger-ui.html",            // ✅ 추가
                                 "/swagger-ui/**",
+                                "/v3/api-docs",
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/webjars/**",
-                                "/").permitAll()
+                                "/"                             // 기본 루트
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
@@ -52,7 +56,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        // ✅ Flutter 웹 포트에 맞게 정확하게 명시
+        // Flutter 웹 포트에 맞게 정확하게 명시
         config.setAllowedOriginPatterns(List.of("http://localhost:*"));
 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -63,7 +67,4 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
-
-
-
 }

@@ -1,26 +1,59 @@
 package com.jeongneung.JeongneungChingu.domain.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userKey;  // 내부 DB 식별자 (자동 생성 PK)
+    private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String userId;  // 사용자가 입력하는 로그인 ID
-
-    @Column(nullable = false)
-    private String password;
-
-    @Column(nullable = false, unique = true)
+    private String name;
     private String email;
+    private String pw;
+
+    // 기본 생성자
+    public User() {}
+
+    // Getter/Setter 메소드
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPw(){
+        return pw;
+    }
+
+    public void setPw(String pw){
+        this.pw = pw;
+    }
 }

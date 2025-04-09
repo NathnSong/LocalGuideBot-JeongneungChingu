@@ -11,7 +11,7 @@ public class UserDto {
     @AllArgsConstructor
     @Builder
     public static class Signup {
-        private String userId;
+        private String name;
         private String password;
         private String email;
     }
@@ -22,7 +22,7 @@ public class UserDto {
     @AllArgsConstructor
     @Builder
     public static class Login {
-        private String userId;
+        private String email;
         private String password;
     }
 }

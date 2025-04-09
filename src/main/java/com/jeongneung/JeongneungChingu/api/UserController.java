@@ -28,11 +28,11 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody UserDto.Login request) { //LoginRequest → UserDto.Login 사용
         User user = userService.validateLogin(request.getUserId(), request.getPassword());
 
-        String token = jwtTokenProvider.generateToken(user.getUserId()); //jwt 토큰 발급
+        String token = jwtTokenProvider.generateToken(user.getEmail()); //jwt 토큰 발급
 
         return ResponseEntity.ok(Map.of(  //토큰 및 사용자 아이디 반환
                 "accessToken", token,
-                "userId", user.getUserId()
+                "userId", user.getEmail()
         ));
     }
 }

@@ -23,9 +23,9 @@ public class UserService {
         }
 
         User user = User.builder()
-                .userId(request.getUserId())
+                .name(request.getUserId())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .pw(passwordEncoder.encode(request.getPassword()))
                 .build();
 
         userRepository.save(user);
@@ -34,13 +34,12 @@ public class UserService {
 
     // JWT를 사용한 로그인 검증 로직
     public User validateLogin(String userId, String rawPassword) {
-        User user = userRepository.findByUserId(userId)  //DB에서 유저ID를 찾고 없다면 메시지 반환
+        User user = userRepository.findByEmail(userId)  //DB에서 유저ID를 찾고 없다면 메시지 반환
                 .orElseThrow(() -> new CustomAuthException("존재하지 않는 사용자입니다.", HttpStatus.UNAUTHORIZED));
 
-        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
+        if (!passwordEncoder.matches(rawPassword, user.getPw())) {
             throw new CustomAuthException("비밀번호가 일치하지 않습니다.", HttpStatus.UNAUTHORIZED);
         }
-
         return user;
     }
 }
