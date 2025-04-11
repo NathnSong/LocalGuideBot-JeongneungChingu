@@ -23,7 +23,7 @@ public class UserService {
         }
 
         User user = User.builder()
-                .name(request.getUserId())
+                .name(request.getName())
                 .email(request.getEmail())
                 .pw(passwordEncoder.encode(request.getPassword()))
                 .build();

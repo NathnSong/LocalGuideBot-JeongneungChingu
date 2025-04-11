@@ -26,7 +26,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDto.Login request) { //LoginRequest → UserDto.Login 사용
-        User user = userService.validateLogin(request.getUserId(), request.getPassword());
+        User user = userService.validateLogin(request.getEmail(), request.getPassword());
 
         String token = jwtTokenProvider.generateToken(user.getEmail()); //jwt 토큰 발급
 

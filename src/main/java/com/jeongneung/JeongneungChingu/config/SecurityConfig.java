@@ -37,6 +37,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-resources/**",
                                 "/webjars/**",
+                                "/api/weather",
                                 "/"                             // 기본 루트
                         ).permitAll()
                         .anyRequest().authenticated()
